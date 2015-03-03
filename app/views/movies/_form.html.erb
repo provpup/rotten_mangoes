@@ -1,4 +1,14 @@
-<%= form_for @movie do |f| %>
+<%= form_for @movie, html: {multipart: true} do |f| %>
+  <% if @movie.errors.any? %>
+    <div>
+      <%= pluralize(@movie.errors.count, "error") %> prevented the movie from being saved:
+      <ul>
+        <% @movie.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div>
     <%= f.label "title" %><br>
     <%= f.text_field "title" %>
@@ -18,6 +28,10 @@
   <div>
     <%= f.label "poster_image_url" %><br>
     <%= f.text_field "poster_image_url" %>
+  </div>
+  <div>
+    <%= f.file_field "poster_image" %>
+    <%= f.hidden_field "poster_image_cache" %>
   </div>
   <div>
     <%= f.label "description" %><br>
