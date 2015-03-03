@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @movie.reviews.build(review_params)
-    @review.user_id = current_user.user_id
+    @review.user_id = current_user.id
 
     if @review.save
       redirect_to @movie, notice: "Review created successfully"
@@ -27,6 +27,5 @@ class ReviewsController < ApplicationController
     def review_params
       params.require(:review).permit(:text, :rating_out_of_ten)
     end
-
 
 end
