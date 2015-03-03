@@ -1,4 +1,7 @@
 class Admin::UsersController < ApplicationController
+
+  before_filter :restrict_admin_access
+
   def new
     @user = User.new
   end
@@ -17,6 +20,12 @@ class Admin::UsersController < ApplicationController
   protected
     def user_params
       params.require(:user).permit(:email, :firstname, :lastname, :password, :password_confirmation, :admin)
+    end
+
+    def restrict_admin_access
+      unless current_user && current_user.admin?
+        redirect_to movies_path, notice: 'You must be admin to access admin pages'
+      end
     end
 
 end
