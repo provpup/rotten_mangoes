@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
   has_many :review
-  
+
   validates :title, presence: true
   validates :director, presence: true
   validates :runtime_in_minutes, numericality: { only_integer: true }
@@ -8,6 +8,10 @@ class Movie < ActiveRecord::Base
   validates :poster_image_url, presence: true
   validates :release_date, presence: true
   validate :release_date_in_the_future
+
+  def review_average
+    reviews.sum(:rating_out_of_ten)/reviews.size if reviews.any?
+  end
 
   protected
     def release_date_in_the_future
