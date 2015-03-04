@@ -1,5 +1,9 @@
 class Movie < ActiveRecord::Base
 
+  scope :with_title, -> (movie_title) { where("title LIKE ?", "#{movie_title}%") }
+  scope :with_director, -> (movie_director) { where(director: movie_director) }
+  scope :with_duration, -> (duration_criteria_range) { where(runtime_in_minutes: duration_criteria_range) }
+
   has_many :reviews
 
   validates :title,
