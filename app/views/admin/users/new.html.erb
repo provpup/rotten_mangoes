@@ -10,7 +10,6 @@
       </ul>
     </div>
   <% end %>
-  <%= f.hidden_field :admin, :value => true %>
   <div>
     <%= f.label "email" %><br>
     <%= f.text_field "email" %>
@@ -30,6 +29,10 @@
   <div>
     <%= f.label "password_confirmation" %><br>
     <%= f.password_field "password_confirmation" %>
+  </div>
+  <div>
+    <%= f.check_box :admin %>
+    <%= f.label "admin" %>
   </div>
   <div><%= f.submit "Submit" %></div>
 <% end %>
