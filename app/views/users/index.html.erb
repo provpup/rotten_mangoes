@@ -1,0 +1,12 @@
+<h1>Rotten Mangoes</h1>
+<h2>Users</h2>
+<%= paginate @users %>
+<table>
+<% @users.each do |user| %>
+  <tr>
+  <td><%= user.email %></td>
+  <td><%= user.firstname %></td>
+  <td><%= user.lastname %></td>
+  </tr>
+<% end %>
+</table>

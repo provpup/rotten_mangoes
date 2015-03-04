@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
-  get 'reviews/new'
-
-  get 'reviews/create'
 
   resources :movies do
     resources :reviews, only: [:new, :create]
   end
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :index, :show]
 
   namespace :admin do
     resources :users, only: [:new, :create]
