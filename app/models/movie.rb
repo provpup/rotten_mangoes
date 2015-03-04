@@ -1,5 +1,13 @@
 class Movie < ActiveRecord::Base
 
+  scope :with_title, -> (movie_title) { where("title LIKE ?", "#{movie_title}%") }
+  scope :with_director, -> (movie_director) { where(director: movie_director) }
+  # Range.new(-Float::Infinity, 89)
+  # Range.new(90, 120)
+  # Range.new(121, Float::Infinity)
+  scope :with_duration, -> (duration_criteria_range) { where(runtime_in_minutes: duration_criteria_range) }
+  # scope :with_duration, -> (duration_criteria) { where("runtime_in_minutes #{duration_criteria}") }
+
   has_many :reviews
 
   validates :title,

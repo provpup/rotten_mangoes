@@ -1,6 +1,16 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+    @movies = Movie.where(nil)
+    @movies = @movies.with_title(params[:title]) if params[:title].present?
+    @movies = @movies.with_director(params[:director]) if params[:director].present?
+    if params[:duration_criteria].present?
+puts params[:duration_criteria]
+      case params[:duration_criteria].to_sym
+      when :less_than_90     then @movies = @movies.with_duration(Range.new(-Float::Infinity, 89))
+      when :between_90_120   then @movies = @movies.with_duration(Range.new(90, 120))
+      when :greater_than_120 then @movies = @movies.with_duration(Range.new(121, Float::Infinity))
+      end
+    end
   end
 
   def show
