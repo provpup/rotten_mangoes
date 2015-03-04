@@ -1,4 +1,15 @@
 class UsersController < ApplicationController
+
+  before_filter :restrict_admin_access, only: [:index, :show]
+
+  def index
+    @users = User.page(params[:page])
+  end
+
+  def show
+    @user = User.find(params[:id])
+  end
+
   def new
     @user = User.new
   end
