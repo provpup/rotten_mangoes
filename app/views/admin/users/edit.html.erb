@@ -1,8 +1,8 @@
-<h1>Sign Up</h1>
-<%= form_for @user, url: admin_users_path do |f| %>
+<h1>Edit User</h1>
+<%= form_for @user do |f| %>
   <% if @user.errors.any? %>
     <div>
-      <%= pluralize(@user.errors.count, "error") %> prevented the account from being created:
+      <%= pluralize(@user.errors.count, "error") %> prevented the account from being saved:
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -29,10 +29,6 @@
   <div>
     <%= f.label "password_confirmation" %><br>
     <%= f.password_field "password_confirmation" %>
-  </div>
-  <div>
-    <%= f.check_box :admin %>
-    <%= f.label "admin" %>
   </div>
   <div><%= f.submit "Submit" %></div>
 <% end %>
