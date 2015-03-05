@@ -9,7 +9,13 @@ Rails.application.routes.draw do
     resources :users, only: [:new, :create, :edit]
   end
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy] do
+    member do
+      post 'create_persona'
+      delete 'destroy_persona'
+    end
+  end
+
   root to: 'movies#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

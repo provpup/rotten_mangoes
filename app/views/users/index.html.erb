@@ -5,6 +5,7 @@
 <% @users.each do |user| %>
   <tr>
   <td><%= link_to "Show user", user_path(user) %></td>
+  <td><%= link_to "Impersonate user", create_persona_session_path(id: user.id), method: :post %></td>
   <td><%= link_to "Edit user", edit_admin_user_path(user) %></td>
   <td><%= link_to "Delete", user_path(user), method: :delete %></td>
   <td><%= user.email %></td>
