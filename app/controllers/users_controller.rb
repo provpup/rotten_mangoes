@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :restrict_admin_access, only: [:index, :show]
+  before_filter :restrict_admin_access, only: [:index, :show, :update, :destroy]
 
   def index
     @users = User.page(params[:page])
@@ -33,6 +33,12 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path
   end
 
   protected
