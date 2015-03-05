@@ -1,8 +1,13 @@
 class MoviesController < ApplicationController
   def index
     @movies = Movie.where(nil)
-    @movies = @movies.with_title(params[:title]) if params[:title].present?
-    @movies = @movies.with_director(params[:director]) if params[:director].present?
+
+    if (params[:keyword].present?)
+      title_clause = @movies.with_title(params[:keyword]).where_values.reduce(:and)
+      director_clause = @movies.with_director(params[:keyword]).where_values.reduce(:and)
+      @movies = @movies.where("(#{title_clause}) OR (#{director_clause})")
+    end
+
     if params[:duration_criteria].present?
       case params[:duration_criteria].to_sym
       # We use -Float::Infinity, Float::Infinity here so that
