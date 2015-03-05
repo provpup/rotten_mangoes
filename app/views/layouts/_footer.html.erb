@@ -6,6 +6,9 @@
         [<%= link_to "Admin page", users_path %>]
       <% end %>
       (<%= link_to "Log out", session_path("current"), method: :delete %>)
+      <% if original_admin_user %>
+      (<%= link_to "Revert to admin", destroy_persona_session_path("current"), method: :delete %>)
+      <% end %>
     <% else %>
       <%= link_to "Log In", new_session_path %> | <%= link_to "Sign Up", new_user_path %>
     <% end %>
